@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-import-css-l7",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Injects imported styles (css-modules) into js",
   "main": "index.js",
   "scripts": {
@@ -21,13 +21,14 @@
   "author": "Alex Mextner <invntrm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "autoprefixer": "^10.3.1",
+    "autoprefixer": "8.4.0",
     "load-styles": "^2.0.0",
     "require-resolve": "0.0.2"
   },
   "peerDependencies": {
     "@babel/template": "^7.14.5",
-    "@babel/types": "^7.15.0"
+    "@babel/types": "^7.15.0",
+    "postcss": "^7.0.18"
   },
   "devDependencies": {
     "@babel/cli": "^7.14.8",
