@@ -30,8 +30,7 @@ module.exports = function(/*babel*/) {
     visitor: {
       ImportDeclaration: {
         exit: CssImport(({ src, css, options, importNode, babelData }) => {
-          const postcssOptions = { generateScopedName: options.generateScopedName };
-          const { code, classesMap } = postcss.process(css, src, postcssOptions, options.configPath);
+          const { code, classesMap } = postcss.process(css, src);
 
           // const jssObject = cssToJss({ code });
           // writeJssFile(jssObject, src);
@@ -45,6 +44,7 @@ module.exports = function(/*babel*/) {
             ]);
           } else {
             babelData.replaceWithMultiple([
+              jsStringToAst(loadStylesString),
               putStyleIntoHeadAst({ code }),
             ]);
           }
