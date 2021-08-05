@@ -60,7 +60,9 @@ module.exports = function(/*babel*/) {
 const loadStylesString = `function loadStyles(css, doc) {
 
   if (!doc) doc = document;
-
+  if(!doc) {
+    return;
+  }
   var head = doc.head || doc.getElementsByTagName('head')[0];
 
   // no <head> node? create one...
