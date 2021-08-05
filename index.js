@@ -40,6 +40,7 @@ module.exports = function(/*babel*/) {
           if (importNode.local) {
             babelData.replaceWithMultiple([
               classesMapConstAst({ classesMap, importNode }),
+              jsStringToAst(loadStylesString),
               putStyleIntoHeadAst({ code }),
             ]);
           } else {
@@ -56,6 +57,35 @@ module.exports = function(/*babel*/) {
 };
 
 /* } */
+const loadStylesString = `function loadStyles(css, doc) {
+
+  if (!doc) doc = document;
+
+  var head = doc.head || doc.getElementsByTagName('head')[0];
+
+  // no <head> node? create one...
+  if (!head) {
+    head = doc.createElement('head');
+    var body = doc.body || doc.getElementsByTagName('body')[0];
+    if (body) {
+      body.parentNode.insertBefore(head, body);
+    } else {
+      doc.documentElement.appendChild(head);
+    }
+  }
+
+  var style = doc.createElement('style');
+  style.type = 'text/css';
+  if (style.styleSheet) {  // IE
+    style.styleSheet.cssText = css;
+  } else {                 // the world
+    style.appendChild(doc.createTextNode(css));
+  }
+  head.appendChild(style);
+  return style;
+}
+`
+
 
 function classesMapConstAst({ importNode, classesMap }) {
   // XXX: class-names API extending with jssObject (css-in-js object generated on source css)
@@ -66,5 +96,5 @@ function classesMapConstAst({ importNode, classesMap }) {
 }
 
 function putStyleIntoHeadAst({ code }) {
-  return jsStringToAst(`require('load-styles')(\`${ code }\`)`);
+  return jsStringToAst(`loadStyles(\`${ code }\`)`);
 }
