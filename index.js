@@ -59,6 +59,13 @@ module.exports = function(/*babel*/) {
 /* } */
 const loadStylesString = `function loadStyles(css, doc) {
 
+  var isMiniAli =
+  typeof my !== 'undefined' && !!my && typeof my.showToast === 'function';
+
+  var isWeChatMiniProgram = typeof wx !== 'undefined' && wx !== null && (typeof wx.request !== 'undefined' || typeof wx.miniProgram !== 'undefined');
+  if(isMiniAli || isWeChatMiniProgram) {
+    return;
+  }
   if (!doc) doc = document;
   if(!doc) {
     return;
