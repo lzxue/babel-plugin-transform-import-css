@@ -60,7 +60,7 @@ module.exports = function(/*babel*/) {
 const loadStylesString = `function loadStyles(css, doc) {
 
   var isMiniAli =
-  typeof my !== 'undefined' && !!my && typeof my.showToast === 'function';
+  typeof my !== 'undefined' && !!my && typeof my.showToast === 'function' && my.isFRM !== true;
 
   var isWeChatMiniProgram = typeof wx !== 'undefined' && wx !== null && (typeof wx.request !== 'undefined' || typeof wx.miniProgram !== 'undefined');
   if(isMiniAli || isWeChatMiniProgram) {
